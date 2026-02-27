@@ -6,7 +6,7 @@ export default function Home(){
     const baseUrl = `http://www.omdbapi.com/?s=${search}&apikey=`
 
     //Ikke gjør sånn!!
-    const apiKey = "....."
+    const apiKey = "..."
 
 
     const getMovies = async()=>{
@@ -27,16 +27,18 @@ export default function Home(){
         setSearch(e.target.value)
     }
 
-    return(
+      return(
     <main>
          <h1>Forside</h1>
          <form>
             <label>
                 Søk etter film
-            <input type="search" placeholder="Harry Potter" onChange={handleChange}></input>
-            <label/>
+            <input type="search" placeholder="Harry Potter" onChange={handleChange} />
+            </label>
         </form>
          {<button onClick={getMovies}>Søk</button>}
     </main>
     )
+
+  
 }
