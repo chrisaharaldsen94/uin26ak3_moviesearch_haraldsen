@@ -52,12 +52,9 @@ export default function Home(){
             {/* {focused ? <History history={history} setSearch={setSearch} /> : null } */}
             <button onClick={getMovies}>Søk</button>
         </form>
-        <section>
-                {mo?.map((mo) => <MovieCard  key={mo.imbdID} mo = {mo} />)}
+            <section>
+                {mo?.map((mo) => <MovieCard  key={mo.imdbID} mo = {mo} />)}
             </section>
-
-    </main>
-        
+    </main>       
     )
-
 }
