@@ -1,3 +1,4 @@
+
 export default function MovieCard({mo}){
 
     const {Title, Poster, Year} = mo
