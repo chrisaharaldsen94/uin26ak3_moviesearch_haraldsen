@@ -1,29 +1,21 @@
 import { useEffect, useState } from "react"
-import History from "../components/History"
+import MovieCard from "../components/MovieCard"
 
 export default function Home(){
-    const [search, setSearch] = useState()
-    const storedHistory = localStorage.getItem("search")
-    const [focused, setFocused] = useState(false) 
+    const [search, setSearch] = useState("James Bond")
+     const [mo, setMo] = useState([])
+
+
     
-    const [history, setHistory] = useState(storedHistory ? JSON.parse(storedHistory) : [])
-
-    console.log("Denne kommer fra storage", storedHistory)
-
     const baseUrl = `http://www.omdbapi.com/?s=${search}&apikey=`
-    //GJØR SÅNN!!!!!
     const apiKey = import.meta.env.VITE_APP_API_KEY
-
-    useEffect(()=>{
-        
-        localStorage.setItem("search", JSON.stringify(history))
-    },[history])
 
     const getMovies = async()=>{
         try
         {
             const response = await fetch(`${baseUrl}${apiKey}`)
             const data = await response.json()
+            setMo(data.Search)
             
             console.log(data)
 
@@ -41,28 +33,31 @@ export default function Home(){
         e.preventDefault()
         e.target.reset()
 
-        setHistory((prev) => [...prev, search])
-
-        
-
     }
-    console.log(history)
-
+    //Her fikk jeg hjelp av medelev Ole Bovolden til å lage useEffect. 
+    useEffect(()=>{
+        if (search) {
+            getMovies();
+        }
+    }, [search])
+  
     return (
     <main>
         <h1>Forside</h1>
         <form onSubmit={handleSubmit}>
             <label>
                 Søk etter film
-                <input type="search" placeholder="Harry Potter" onChange={handleChange} onFocus={()=> setFocused(true)} /*onBlur={()=> setFocused(false)}*/></input>
+                <input type="search" placeholder="James Bond" onChange={handleChange}></input>
             </label>
-            {focused ? <History history={history} setSearch={setSearch} /> : null }
+            {/* {focused ? <History history={history} setSearch={setSearch} /> : null } */}
             <button onClick={getMovies}>Søk</button>
         </form>
+        <section>
+                {mo?.map((mo) => <MovieCard  key={mo.imbdID} mo = {mo} />)}
+            </section>
 
     </main>
         
     )
 
-    
 }
