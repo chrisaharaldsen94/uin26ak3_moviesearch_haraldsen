@@ -36,7 +36,7 @@ export default function Home(){
     }
     //Her fikk jeg hjelp av medelev Ole Bovolden til å lage useEffect. 
     useEffect(()=>{
-        if (search) {
+        if (search && search.length >=3) {
             getMovies();
         }
     }, [search])
