@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react"
 import MovieCard from "../components/MovieCard"
+import { Link } from "react-router-dom"
 
 export default function Home(){
     const [search, setSearch] = useState("James Bond")
-     const [mo, setMo] = useState([])
+    const [mo, setMo] = useState([])
 
 
     
-    const baseUrl = `http://www.omdbapi.com/?s=${search}&apikey=`
+    const baseUrl = `http://www.omdbapi.com/?s=${search}&type=movie&apikey=`
     const apiKey = import.meta.env.VITE_APP_API_KEY
 
     const getMovies = async()=>{
@@ -47,13 +48,12 @@ export default function Home(){
         <form onSubmit={handleSubmit}>
             <label>
                 Søk etter film
-                <input minLength={3} type="search" placeholder="James Bond" onChange={handleChange}></input>
+                <input minLength={3} type="search" placeholder="F.eks: James Bond" onChange={handleChange}></input>
             </label>
-            {/* {focused ? <History history={history} setSearch={setSearch} /> : null } */}
             <button onClick={getMovies}>Søk</button>
         </form>
             <section>
-                {mo?.map((mo) => <MovieCard  key={mo.imdbID} mo = {mo} />)}
+                {mo?.map((mo) => (<Link to={mo.imdbID}><MovieCard  key={mo.imdbID} mo = {mo} /></Link>))}
             </section>
     </main>       
     )
