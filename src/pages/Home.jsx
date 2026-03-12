@@ -36,10 +36,10 @@ export default function Home(){
     }
     //Her fikk jeg hjelp av medelev Ole Bovolden til å lage useEffect. 
     useEffect(()=>{
-        if (search && search.length >=3) {
+        if (search) {
             getMovies();
         }
-    }, [search])
+    }, [])
   
     return (
     <main>
@@ -47,7 +47,7 @@ export default function Home(){
         <form onSubmit={handleSubmit}>
             <label>
                 Søk etter film
-                <input type="search" placeholder="James Bond" onChange={handleChange}></input>
+                <input minLength={3} type="search" placeholder="James Bond" onChange={handleChange}></input>
             </label>
             {/* {focused ? <History history={history} setSearch={setSearch} /> : null } */}
             <button onClick={getMovies}>Søk</button>
